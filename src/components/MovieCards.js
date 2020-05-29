@@ -8,9 +8,6 @@ export default function MovieCards(props) {
         <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2/${props.movie.poster_path}`}/>
         <Card.Body>
           <Card.Title>{props.movie.title}</Card.Title>
-          <Card.Text>
-            {props.movie.overview}
-          </Card.Text>
         </Card.Body>
         <ListGroup className="list-group-flush">
           <ListGroupItem>{props.movie.popularity} are watching!</ListGroupItem>

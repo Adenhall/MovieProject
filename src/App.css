@@ -2,3 +2,13 @@
   margin: 10px;
   flex-wrap: wrap;
 }
+.previous-page {
+  width: 200px;
+}
+.next-page {
+  width: 200px;
+}
+.change-page-button {
+  align-self: center;
+  width: 50%;
+}
