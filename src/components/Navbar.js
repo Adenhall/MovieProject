@@ -5,9 +5,9 @@ export default function NavBar() {
     return (
         <div>
             <Navbar bg="dark" variant="dark">
-                <Navbar.Brand href="#home">MOVIE 'N CHILL</Navbar.Brand>
+                <Navbar.Brand href="https://movieeeee.netlify.app/">MOVIE 'N CHILL</Navbar.Brand>
                 <Nav className="mr-auto">
-                    <Nav.Link href="#home">Home</Nav.Link>
+                    
                 </Nav>
                 <Form inline>
                     <FormControl type="text" placeholder="Search" className="mr-sm-2" />

@@ -41,14 +41,14 @@ export default function App() {
     let data = await fetch(url);
     let result = await data.json();
     document.getElementById('main-body').innerHTML = `<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">MOVIE 'N CHILL</a>
+    <a class="navbar-brand" href=${`https://movieeeee.netlify.app/`}>MOVIE 'N CHILL</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href=${`https://movieeeee.netlify.app/`}>Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="${result.homepage}">See more</a>
