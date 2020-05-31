@@ -1,7 +1,7 @@
 import React from 'react'
-import {Nav, Form, FormControl, Button} from 'react-bootstrap/'
+import {Nav, Navbar, Form, FormControl, Button} from 'react-bootstrap/'
 
-export default function Navbar() {
+export default function NavBar() {
     return (
         <div>
             <Navbar bg="dark" variant="dark">

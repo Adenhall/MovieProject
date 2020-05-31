@@ -15,8 +15,9 @@ export default function MovieCards(props) {
           <ListGroupItem>Release date: {props.movie.release_date}</ListGroupItem>
         </ListGroup>
         <Card.Body>
-          <Card.Link href="#">Card Link</Card.Link>
-          <Card.Link href="#">Another Link</Card.Link>
+        <div className="learn-more-btn"><a href="#">
+          <p><span className="bg"></span><span className="base"></span><span className="text">LEARN MORE</span></p></a>
+        </div>
         </Card.Body>
       </Card>
         </div>

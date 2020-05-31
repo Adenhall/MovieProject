@@ -3,19 +3,18 @@ import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import MovieCard from './components/MovieCards.js';
 import ChangePageBtn from './components/ChangePageBtn.js';
-import Navbar from './components/Navbar.js';
+import NavBar from './components/Navbar.js';
 
 const API_KEY = "e32f02b7a91bd590c9e7305b54bba6de";
+let page = 1;
 
 export default function App() {
 
   const [movieList, setMovieList] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1)
   const [prePageBtn, setPrePageBtn] = useState(true);
   const [nextPageBtn, setNextPageBtn] = useState(false);
   const getMovieList = async() => {
-    console.log("current page",currentPage)
-    let url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=true&include_video=false&page=${currentPage}`
+    let url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=true&include_video=false&page=${page}`
 
     let data = await fetch(url);
     let result = await data.json();
@@ -30,19 +29,23 @@ export default function App() {
 
   const setThisPage = async(x) => {
     if (x === 'back') {
-      setCurrentPage(currentPage-1)
+      page--;
       
     }
     if (x === 'forward') {
-      setCurrentPage(currentPage + 1)
+      page++;
     }
-    if(currentPage <= 1) {
+    if(page <= 1) {
       setPrePageBtn(true)
     } else setPrePageBtn(false)
-    if (currentPage >= 500){
+    if (page >= 500){
       setNextPageBtn(true)
     }
     getMovieList();
+    let demoList = movieList.map(item => {
+      return item.id
+    })
+    console.log(demoList)
   }
 
   if (movieList === null) {
@@ -51,12 +54,13 @@ export default function App() {
 
   return (
     <div className="d-flex flex-column">
+      <NavBar/>
       <div className="d-flex justify-content-around movie-list">
         {movieList.map(item => {
           return <MovieCard movie = {item}/>
         })}
       </div>
-      <ChangePageBtn prePageBtn={prePageBtn} nextPageBtn={nextPageBtn} pageNumber = {currentPage} setPage={setThisPage} />
+      <ChangePageBtn prePageBtn={prePageBtn} nextPageBtn={nextPageBtn} pageNumber = {page} setPage={setThisPage} />
     </div>
   );
 }
