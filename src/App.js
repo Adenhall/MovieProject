@@ -13,6 +13,8 @@ export default function App() {
   const [movieList, setMovieList] = useState(null);
   const [prePageBtn, setPrePageBtn] = useState(true);
   const [nextPageBtn, setNextPageBtn] = useState(false);
+
+
   const getMovieList = async() => {
     let url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=true&include_video=false&page=${page}`
 
@@ -26,6 +28,22 @@ export default function App() {
     getMovieList();
   }
   ,[])
+
+  const getMovieDetails = async(selectedId) => {
+    let demoList = movieList.map(item => {
+      return item.id
+    })
+    console.log(demoList)
+    let movieId = demoList.filter((x) => 
+      x === selectedId
+    )
+    let url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=en-US`;
+    let data = await fetch(url);
+    let result = await data.json();
+    document.getElementsByClassName('movie-list').innerHTML = null;
+    console.log(result)
+
+  }
 
   const setThisPage = async(x) => {
     if (x === 'back') {
@@ -42,22 +60,19 @@ export default function App() {
       setNextPageBtn(true)
     }
     getMovieList();
-    let demoList = movieList.map(item => {
-      return item.id
-    })
-    console.log(demoList)
   }
 
   if (movieList === null) {
     return(<div>Loading</div>)
   }
 
+
   return (
     <div className="d-flex flex-column">
       <NavBar/>
       <div className="d-flex justify-content-around movie-list">
         {movieList.map(item => {
-          return <MovieCard movie = {item}/>
+          return <MovieCard movie = {item} getMovieDetails = {getMovieDetails}/>
         })}
       </div>
       <ChangePageBtn prePageBtn={prePageBtn} nextPageBtn={nextPageBtn} pageNumber = {page} setPage={setThisPage} />
