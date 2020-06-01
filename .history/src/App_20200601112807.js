@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import MovieCard from "./components/MovieCards.js";
 import ChangePageBtn from "./components/ChangePageBtn.js";
 import NavBar from "./components/Navbar.js";
+import { Modal } from "react-bootstrap/";
 
 const API_KEY = "e32f02b7a91bd590c9e7305b54bba6de";
 let page = 1;
@@ -131,14 +132,8 @@ export default function App() {
     <div id="main-body" className="d-flex flex-column">
       <NavBar searchTheKeywordProps={searchTheKeyword} />
       <div id="movies" className="d-flex justify-content-around movie-list">
-        {movieList.map((item, index) => {
-          return (
-            <MovieCard
-              key={index}
-              movie={item}
-              getMovieDetails={getMovieDetails}
-            />
-          );
+        {movieList.map((item) => {
+          return <MovieCard movie={item} getMovieDetails={getMovieDetails} />;
         })}
       </div>
       <ChangePageBtn

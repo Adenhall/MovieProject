@@ -190,7 +190,3 @@ div a:before {
     display: flex;
     justify-content: center;
 }
-
-.card-img-top {
-    cursor: pointer;
-}

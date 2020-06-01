@@ -7,10 +7,7 @@ export default function MovieCards(props) {
   const [movieID, setmovieID] = useState("");
   const [show, setShow] = useState(false);
 
-  const handleClose = () => {
-    setmovieID("");
-    setShow(false);
-  };
+  const handleClose = () => setShow(false);
 
   const onClickHandle = async (id) => {
     let url = `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${API_KEY}&language=en-US`;
@@ -18,10 +15,8 @@ export default function MovieCards(props) {
     let result = await data.json();
     if (result.results.length !== 0) {
       setmovieID(result.results[0].key);
-    } else {
-      setmovieID("");
+      setShow(true);
     }
-    setShow(true);
   };
   return (
     <div>
@@ -30,11 +25,7 @@ export default function MovieCards(props) {
           <Modal.Title>{props.movie.title} 's Trailer</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {movieID === "" ? (
-            <div>Nothing to show</div>
-          ) : (
-            <YouTube width={450} height={400} video={movieID} autoplay />
-          )}
+          <YouTube width={450} height={400} video={movieID} autoplay />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
@@ -44,6 +35,7 @@ export default function MovieCards(props) {
       </Modal>
       <Card style={{ width: "18rem" }}>
         <Card.Img
+          style={{ pointer: "cursor" }}
           variant="top"
           src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2/${props.movie.poster_path}`}
           onClick={() => onClickHandle(props.movie.id)}

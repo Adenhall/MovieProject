@@ -1,52 +1,19 @@
-import React, { useState } from "react";
-import { Card, ListGroup, ListGroupItem, Modal, Button } from "react-bootstrap";
-import YouTube from "@u-wave/react-youtube";
+import React from "react";
+import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
 const API_KEY = "e32f02b7a91bd590c9e7305b54bba6de";
-
 export default function MovieCards(props) {
-  const [movieID, setmovieID] = useState("");
-  const [show, setShow] = useState(false);
+  let fetchVideoId = async () => {
+    let url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=true&include_video=false&page=${page}`;
 
-  const handleClose = () => {
-    setmovieID("");
-    setShow(false);
-  };
-
-  const onClickHandle = async (id) => {
-    let url = `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${API_KEY}&language=en-US`;
     let data = await fetch(url);
     let result = await data.json();
-    if (result.results.length !== 0) {
-      setmovieID(result.results[0].key);
-    } else {
-      setmovieID("");
-    }
-    setShow(true);
   };
   return (
     <div>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>{props.movie.title} 's Trailer</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {movieID === "" ? (
-            <div>Nothing to show</div>
-          ) : (
-            <YouTube width={450} height={400} video={movieID} autoplay />
-          )}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
       <Card style={{ width: "18rem" }}>
         <Card.Img
           variant="top"
           src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2/${props.movie.poster_path}`}
-          onClick={() => onClickHandle(props.movie.id)}
         />
         <Card.Body>
           <Card.Title>{props.movie.title}</Card.Title>
@@ -65,7 +32,7 @@ export default function MovieCards(props) {
         <Card.Body>
           <div className="learn-more-btn">
             <a
-              href="/"
+              href="#"
               onClick={() => {
                 props.getMovieDetails(props.movie.id);
               }}

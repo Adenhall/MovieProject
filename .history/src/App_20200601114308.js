@@ -131,14 +131,8 @@ export default function App() {
     <div id="main-body" className="d-flex flex-column">
       <NavBar searchTheKeywordProps={searchTheKeyword} />
       <div id="movies" className="d-flex justify-content-around movie-list">
-        {movieList.map((item, index) => {
-          return (
-            <MovieCard
-              key={index}
-              movie={item}
-              getMovieDetails={getMovieDetails}
-            />
-          );
+        {movieList.map((item) => {
+          return <MovieCard movie={item} getMovieDetails={getMovieDetails} />;
         })}
       </div>
       <ChangePageBtn
