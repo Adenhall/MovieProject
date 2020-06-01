@@ -65,7 +65,7 @@ export default function MovieCards(props) {
         <Card.Body>
           <div className="learn-more-btn">
             <a
-              href="/"
+              href="#"
               onClick={() => {
                 props.getMovieDetails(props.movie.id);
               }}
