@@ -1,7 +1,12 @@
 import React from 'react'
 import {Nav, Navbar, Form, FormControl, Button} from 'react-bootstrap/'
 
-export default function NavBar() {
+export default function NavBar(props) {
+    let keyword = '';
+    const searchByKeyword = (e) => {
+        e.preventDefault()
+        props.searchTheKeywordProps(keyword)
+      }
     return (
         <div>
             <Navbar bg="dark" variant="dark">
@@ -9,9 +14,9 @@ export default function NavBar() {
                 <Nav className="mr-auto">
                     
                 </Nav>
-                <Form inline>
-                    <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                    <Button variant="outline-info">Search</Button>
+                <Form inline onSubmit={(e) => searchByKeyword(e)}>
+                    <FormControl type="text" placeholder="Search" className="mr-sm-2" onChange={(e) => keyword = e.target.value} />
+                    <Button variant="outline-info" type="submit">Search</Button>
                 </Form>
             </Navbar>
         </div>

@@ -11,6 +11,7 @@ let page = 1;
 export default function App() {
 
   const [movieList, setMovieList] = useState(null);
+  const [originalList, setOriginalList] = useState(null);
   const [prePageBtn, setPrePageBtn] = useState(true);
   const [nextPageBtn, setNextPageBtn] = useState(false);
 
@@ -21,13 +22,25 @@ export default function App() {
     let data = await fetch(url);
     let result = await data.json();
     console.log("My list", result);
-    setMovieList(result.results)
+    setMovieList(result.results);
+    setOriginalList(result.results);
   }
 
   useEffect(() => {
     getMovieList();
   }
   ,[])
+
+  const searchTheKeyword = (keyword) => {
+
+    if(keyword === '') {
+      setMovieList(originalList)
+      return;
+    }
+
+    let filteredList = movieList.filter(movie => movie.title.toLowerCase().includes(keyword.toLowerCase()))
+    setMovieList(filteredList)
+  }
 
   const getMovieDetails = async(selectedId) => {
     let demoList = movieList.map(item => {
@@ -108,10 +121,9 @@ export default function App() {
     return(<div>Loading</div>)
   }
 
-
   return (
     <div id="main-body" className="d-flex flex-column">
-      <NavBar/>
+      <NavBar searchTheKeywordProps={searchTheKeyword}/>
       <div id="movies" className="d-flex justify-content-around movie-list">
         {movieList.map(item => {
           return <MovieCard movie = {item} getMovieDetails = {getMovieDetails}/>
